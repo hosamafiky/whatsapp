@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone/business_logic/chats_cubit/chats_cubit.dart';
-import 'package:whatsapp_clone/business_logic/chats_cubit/chats_state.dart';
-import 'package:whatsapp_clone/presentation/screens/select_contact_screen.dart';
-import 'package:whatsapp_clone/presentation/widgets/chats_widgets/custom_card.dart';
+import '../../../business_logic/chats_cubit/chats_cubit.dart';
+import '../../../business_logic/chats_cubit/chats_state.dart';
+import '../select_contact_screen.dart';
+import '../../widgets/chats_widgets/custom_card.dart';
 import '../../../constants/palette.dart';
 import '../../../data/models/chat_model.dart';
 

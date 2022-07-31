@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter_contacts/contact.dart';
-import 'package:whatsapp_clone/data/models/user_model.dart';
+import '../../data/models/user_model.dart';
 
 abstract class ChatsState {}
 
@@ -45,6 +47,32 @@ class ChatsContactSearchSuccessState extends ChatsState {
 class ChatsContactSearchIconPressedState extends ChatsState {}
 
 class ChatsSendMessageSuccessState extends ChatsState {}
+
+class ChatsSendMessageLoadingState extends ChatsState {}
+
+class ChatsMessageImagePickedSuccessState extends ChatsState {
+  final File file;
+
+  ChatsMessageImagePickedSuccessState(this.file);
+}
+
+class ChatsMessageImagePickedErrorState extends ChatsState {
+  final String error;
+
+  ChatsMessageImagePickedErrorState(this.error);
+}
+
+class ChatsMessageVideoPickedSuccessState extends ChatsState {
+  final File file;
+
+  ChatsMessageVideoPickedSuccessState(this.file);
+}
+
+class ChatsMessageVideoPickedErrorState extends ChatsState {
+  final String error;
+
+  ChatsMessageVideoPickedErrorState(this.error);
+}
 
 class ChatsSendMessageErrorState extends ChatsState {
   final String error;

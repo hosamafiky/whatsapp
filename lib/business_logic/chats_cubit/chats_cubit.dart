@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'package:whatsapp_clone/business_logic/chats_cubit/chats_state.dart';
 import 'package:whatsapp_clone/data/models/chat_model.dart';
@@ -349,6 +350,22 @@ class ChatsCubit extends Cubit<ChatsState> {
     });
   }
 
+  void pickImageFromCamera() {
+    ImagePicker().pickImage(source: ImageSource.camera).then((value) {
+      emit(ChatsMessageImagePickedSuccessState(File(value!.path)));
+    }).catchError((error) {
+      emit(ChatsMessageImagePickedErrorState(error.toString()));
+    });
+  }
+
+  void pickVideoFromCamera() {
+    ImagePicker().pickVideo(source: ImageSource.gallery).then((value) {
+      emit(ChatsMessageVideoPickedSuccessState(File(value!.path)));
+    }).catchError((error) {
+      emit(ChatsMessageVideoPickedErrorState(error.toString()));
+    });
+  }
+
   void sendFileMessage(
     BuildContext context, {
     required String receiverId,
@@ -357,6 +374,7 @@ class ChatsCubit extends Cubit<ChatsState> {
     required MessageEnum messageEnum,
   }) async {
     try {
+      emit(ChatsSendMessageLoadingState());
       var timeSent = DateTime.now();
       var messageId = const Uuid().v1();
 
@@ -408,6 +426,7 @@ class ChatsCubit extends Cubit<ChatsState> {
         messageType: messageEnum,
       );
       getMessages(receiverId);
+      getChats();
       emit(ChatsSendMessageSuccessState());
     } catch (error) {
       showErrorDialog(context, error.toString());

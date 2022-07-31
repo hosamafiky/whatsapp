@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../auth/login_screen.dart';
+
 import '../../../constants/palette.dart';
 import '../../widgets/auth_widgets/custom_button.dart';
+import '../auth/login_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   static const String routeName = '/landing';

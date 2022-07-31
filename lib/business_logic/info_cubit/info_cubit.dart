@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:whatsapp_clone/business_logic/info_cubit/info_state.dart';
-import 'package:whatsapp_clone/data/models/user_model.dart';
-import 'package:whatsapp_clone/data/repository/info_screen_repo.dart';
-import 'package:whatsapp_clone/helpers/firebase_database_helper/firebase_database_helper.dart';
-import 'package:whatsapp_clone/helpers/firebase_storage_helper/firebase_storage_helper.dart';
+import 'info_state.dart';
+import '../../data/models/user_model.dart';
+import '../../data/repository/info_screen_repo.dart';
+import '../../helpers/firebase_database_helper/firebase_database_helper.dart';
+import '../../helpers/firebase_storage_helper/firebase_storage_helper.dart';
 
 class InfoCubit extends Cubit<InfoState> {
   InfoCubit() : super(InfoInitial());

@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:whatsapp_clone/presentation/widgets/auth_widgets/error_dialog.dart';
-import 'package:whatsapp_clone/presentation/widgets/auth_widgets/loading_dialog.dart';
+import '../presentation/widgets/auth_widgets/error_dialog.dart';
+import '../presentation/widgets/auth_widgets/loading_dialog.dart';
 
 void showErrorDialog(BuildContext context, String error) {
   showDialog(

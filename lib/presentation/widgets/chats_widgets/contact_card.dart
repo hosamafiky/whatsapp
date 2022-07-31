@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:whatsapp_clone/constants/palette.dart';
-import 'package:whatsapp_clone/data/models/user_model.dart';
+import '../../../constants/palette.dart';
+import '../../../data/models/user_model.dart';
 
 class ContactCard extends StatelessWidget {
   final Contact contact;

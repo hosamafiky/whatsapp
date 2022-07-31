@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:whatsapp_clone/data/models/user_model.dart';
+import '../../data/models/user_model.dart';
 
 class FirebaseDatabaseHelper {
   Future<void> storeUserData({

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_contacts/contact.dart';
-import 'package:whatsapp_clone/business_logic/chats_cubit/chats_cubit.dart';
-import 'package:whatsapp_clone/business_logic/chats_cubit/chats_state.dart';
-import 'package:whatsapp_clone/constants/palette.dart';
-import 'package:whatsapp_clone/data/models/user_model.dart';
-import 'package:whatsapp_clone/presentation/screens/single_chat_screen.dart';
-import 'package:whatsapp_clone/presentation/widgets/auth_widgets/custom_form_field.dart';
+import '../../business_logic/chats_cubit/chats_cubit.dart';
+import '../../business_logic/chats_cubit/chats_state.dart';
+import '../../constants/palette.dart';
+import '../../data/models/user_model.dart';
+import 'single_chat_screen.dart';
+import '../widgets/auth_widgets/custom_form_field.dart';
 
 import '../widgets/chats_widgets/button_card.dart';
 import '../widgets/chats_widgets/contact_card.dart';

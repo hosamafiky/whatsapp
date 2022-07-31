@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:whatsapp_clone/data/models/chat_model.dart';
+
+import '../../../data/models/chat_model.dart';
 import '../../screens/single_chat_screen.dart';
 
 class CustomCard extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/data/models/chat_model.dart';
+import '../../../data/models/chat_model.dart';
 
 class AvatarCard extends StatelessWidget {
   final Chat chat;

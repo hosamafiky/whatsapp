@@ -35,11 +35,12 @@ class AppRouter {
           builder: (context) => const NewGroupScreen(),
         );
       case CameraScreen.routeName:
+        final id = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (context) => const CameraScreen(),
+          builder: (context) => CameraScreen(receiverId: id),
         );
       case CameraViewScreen.routeName:
-        final path = settings.arguments as String;
+        final path = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (context) => CameraViewScreen(path),
         );

@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone/business_logic/auth_cubit/auth_cubit.dart';
-import 'package:whatsapp_clone/business_logic/auth_cubit/auth_state.dart';
-import 'package:whatsapp_clone/utils/utils.dart';
+import '../../../business_logic/auth_cubit/auth_cubit.dart';
+import '../../../business_logic/auth_cubit/auth_state.dart';
+import '../../../utils/utils.dart';
 import '../../../constants/palette.dart';
 import 'login_screen.dart';
 import '../user_information/user_information_screen.dart';

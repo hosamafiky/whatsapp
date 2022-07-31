@@ -11,7 +11,6 @@ class FirebaseStorageHelper {
         FirebaseStorage.instance.ref().child(path).putFile(file);
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
-
     return downloadUrl;
   }
 }

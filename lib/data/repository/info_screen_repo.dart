@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:whatsapp_clone/data/models/user_model.dart';
-import 'package:whatsapp_clone/helpers/firebase_database_helper/firebase_database_helper.dart';
+import '../models/user_model.dart';
+import '../../helpers/firebase_database_helper/firebase_database_helper.dart';
 
 class InfoScreenRepository {
   Future<UserModel?> getUserData() async {

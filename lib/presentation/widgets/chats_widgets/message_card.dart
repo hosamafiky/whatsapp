@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:whatsapp_clone/constants/palette.dart';
-import 'package:whatsapp_clone/data/models/message_model.dart';
+import 'package:whatsapp_clone/presentation/widgets/chats_widgets/display_text_image.dart';
+import 'package:whatsapp_clone/utils/enums/message_enum.dart';
+import '../../../constants/palette.dart';
+import '../../../data/models/message_model.dart';
 
 class MyMessageCard extends StatelessWidget {
   final Message message;
@@ -27,19 +29,20 @@ class MyMessageCard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  10.0,
-                  5.0,
-                  60.0,
-                  25.0,
-                ),
-                child: Text(
-                  message.text,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
+                padding: message.type == MessageEnum.text
+                    ? const EdgeInsets.fromLTRB(
+                        10.0,
+                        5.0,
+                        60.0,
+                        25.0,
+                      )
+                    : const EdgeInsets.only(
+                        top: 5.0,
+                        left: 5.0,
+                        right: 5.0,
+                        bottom: 25.0,
+                      ),
+                child: DisplayTextImageWidget(message),
               ),
               Positioned(
                 bottom: 4.0,
@@ -94,18 +97,20 @@ class ReplyMessageCard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  10.0,
-                  5.0,
-                  60.0,
-                  25.0,
-                ),
-                child: Text(
-                  message.text,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                  ),
-                ),
+                padding: message.type == MessageEnum.text
+                    ? const EdgeInsets.fromLTRB(
+                        10.0,
+                        5.0,
+                        60.0,
+                        25.0,
+                      )
+                    : const EdgeInsets.only(
+                        top: 5.0,
+                        left: 5.0,
+                        right: 5.0,
+                        bottom: 25.0,
+                      ),
+                child: DisplayTextImageWidget(message),
               ),
               Positioned(
                 bottom: 4.0,

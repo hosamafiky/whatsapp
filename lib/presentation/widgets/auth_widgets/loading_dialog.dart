@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../constants/palette.dart';
 
 class LoadingDialog extends StatelessWidget {

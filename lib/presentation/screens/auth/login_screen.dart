@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone/business_logic/auth_cubit/auth_cubit.dart';
-import 'package:whatsapp_clone/business_logic/auth_cubit/auth_state.dart';
+import '../../../business_logic/auth_cubit/auth_cubit.dart';
+import '../../../business_logic/auth_cubit/auth_state.dart';
 import '../../../constants/palette.dart';
 import 'otp_screen.dart';
 import 'select_dial_code.dart';

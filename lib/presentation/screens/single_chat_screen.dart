@@ -12,6 +12,8 @@ import 'package:whatsapp_clone/business_logic/chats_cubit/chats_cubit.dart';
 import 'package:whatsapp_clone/business_logic/chats_cubit/chats_state.dart';
 import 'package:whatsapp_clone/data/models/message_model.dart';
 import 'package:whatsapp_clone/data/models/user_model.dart';
+import 'package:whatsapp_clone/presentation/screens/camera/camera_screen.dart';
+import 'package:whatsapp_clone/presentation/screens/camera/camera_view_screen.dart';
 import 'package:whatsapp_clone/presentation/widgets/chats_widgets/message_card.dart';
 import 'package:whatsapp_clone/utils/enums/message_enum.dart';
 import 'package:whatsapp_clone/utils/utils.dart';
@@ -112,6 +114,15 @@ class _SingleChatScreenState extends State<SingleChatScreen> {
         if (state is ChatsSendMessageSuccessState) {
           focusNode.unfocus();
           controller.text = '';
+        } else if (state is ChatsMessageImagePickedSuccessState) {
+          Navigator.pushNamed(
+            context,
+            CameraViewScreen.routeName,
+            arguments: {
+              'path': state.file.path,
+              'receiverId': widget.userModel['uId'],
+            },
+          );
         }
       },
       builder: (context, state) {
@@ -244,10 +255,15 @@ class _SingleChatScreenState extends State<SingleChatScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
+                          SchedulerBinding.instance.addPostFrameCallback((_) {
+                            messageController.jumpTo(
+                                messageController.position.maxScrollExtent);
+                          });
                           return Column(
                             children: [
                               Expanded(
                                 child: ListView.builder(
+                                  controller: messageController,
                                   itemBuilder: (context, index) {
                                     if (index == cubit.recentMessages.length) {
                                       return const SizedBox(height: 60.0);
@@ -368,7 +384,12 @@ class _SingleChatScreenState extends State<SingleChatScreen> {
                                           ),
                                           IconButton(
                                             onPressed: () =>
-                                                sendFileMessage(context),
+                                                Navigator.pushNamed(
+                                              context,
+                                              CameraScreen.routeName,
+                                              arguments:
+                                                  widget.userModel['uId'],
+                                            ),
                                             icon: const Icon(Icons.camera_alt),
                                           ),
                                         ],

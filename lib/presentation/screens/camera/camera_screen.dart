@@ -7,7 +7,11 @@ List<CameraDescription>? cameras;
 
 class CameraScreen extends StatefulWidget {
   static const String routeName = '/camera';
-  const CameraScreen({Key? key}) : super(key: key);
+  final String? receiverId;
+  const CameraScreen({
+    Key? key,
+    this.receiverId,
+  }) : super(key: key);
 
   @override
   State<CameraScreen> createState() => _CameraScreenState();
@@ -22,7 +26,10 @@ class _CameraScreenState extends State<CameraScreen> {
       Navigator.pushNamed(
         context,
         CameraViewScreen.routeName,
-        arguments: value.path,
+        arguments: {
+          'path': value.path,
+          'receiverId': widget.receiverId,
+        },
       );
     });
   }

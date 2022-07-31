@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone/business_logic/info_cubit/info_cubit.dart';
-import 'package:whatsapp_clone/business_logic/info_cubit/info_state.dart';
-import 'package:whatsapp_clone/constants/palette.dart';
-import 'package:whatsapp_clone/data/models/user_model.dart';
-import 'package:whatsapp_clone/presentation/screens/layouts/mobile_screen_layout.dart';
-import 'package:whatsapp_clone/utils/utils.dart';
+import '../../../business_logic/info_cubit/info_cubit.dart';
+import '../../../business_logic/info_cubit/info_state.dart';
+import '../../../constants/palette.dart';
+import '../../../data/models/user_model.dart';
+import '../layouts/mobile_screen_layout.dart';
+import '../../../utils/utils.dart';
 
 class UserInformationScreen extends StatefulWidget {
   static const String routeName = '/user-information';

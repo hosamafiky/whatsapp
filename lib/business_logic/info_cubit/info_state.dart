@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:whatsapp_clone/data/models/user_model.dart';
+import '../../data/models/user_model.dart';
 
 abstract class InfoState {}
 
