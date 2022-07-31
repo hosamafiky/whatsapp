@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:whatsapp_clone/data/models/chat_model.dart';
 import 'package:whatsapp_clone/data/models/message_model.dart';
 import 'package:whatsapp_clone/data/models/user_model.dart';
 import 'package:whatsapp_clone/helpers/firebase_database_helper/firebase_database_helper.dart';
+import 'package:whatsapp_clone/helpers/firebase_storage_helper/firebase_storage_helper.dart';
 import 'package:whatsapp_clone/utils/enums/message_enum.dart';
 import 'package:whatsapp_clone/utils/utils.dart';
 
@@ -248,6 +251,36 @@ class ChatsCubit extends Cubit<ChatsState> {
     }
   }
 
+  List<Chat> recentChats = [];
+  void getChats() async {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('chats')
+        .orderBy("timeSent", descending: true)
+        .get()
+        .then((value) async {
+      List<Chat> chats = [];
+      for (var doc in value.docs) {
+        var chat = Chat.fromMap(doc.data());
+        var userData = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(chat.contactId)
+            .get();
+        var user = UserModel.fromMap(userData.data()!);
+        chats.add(Chat(
+          name: user.name,
+          image: user.profilePicture,
+          contactId: chat.contactId,
+          lastMessage: chat.lastMessage,
+          timeSent: chat.timeSent,
+        ));
+      }
+      recentChats = chats;
+      emit(ChatContactsLoadedSuccess());
+    });
+  }
+
   Stream<List<Chat>> getChatsStream() {
     return FirebaseFirestore.instance
         .collection('users')
@@ -314,5 +347,71 @@ class ChatsCubit extends Cubit<ChatsState> {
       }
       return messages;
     });
+  }
+
+  void sendFileMessage(
+    BuildContext context, {
+    required String receiverId,
+    required File file,
+    required UserModel senderUserData,
+    required MessageEnum messageEnum,
+  }) async {
+    try {
+      var timeSent = DateTime.now();
+      var messageId = const Uuid().v1();
+
+      String fileUrl =
+          await FirebaseStorageHelper().uploadFileToFirestoreDatabase(
+        path:
+            'chats/${messageEnum.type}/${senderUserData.uId}/$receiverId/$messageId',
+        file: file,
+      );
+
+      UserModel receiverUserData = UserModel.fromMap(
+          (await FirebaseDatabaseHelper().getUserData(receiverId))!);
+
+      String contactMessage;
+
+      switch (messageEnum) {
+        case MessageEnum.image:
+          contactMessage = '📷 Photo';
+          break;
+        case MessageEnum.video:
+          contactMessage = '📸 Video';
+          break;
+        case MessageEnum.audio:
+          contactMessage = '🎵 Audio';
+          break;
+
+        case MessageEnum.gif:
+          contactMessage = 'GIF';
+          break;
+        default:
+          contactMessage = 'GIF';
+      }
+
+      _saveDataToChatsSubcollection(
+        senderUserData,
+        receiverUserData,
+        contactMessage,
+        timeSent,
+        receiverId,
+      );
+
+      _saveMessageToMessagesSubcollection(
+        receiverUserId: receiverId,
+        text: fileUrl,
+        messageId: messageId,
+        timeSent: timeSent,
+        userName: senderUserData.name,
+        receiverUserName: receiverUserData.name,
+        messageType: messageEnum,
+      );
+      getMessages(receiverId);
+      emit(ChatsSendMessageSuccessState());
+    } catch (error) {
+      showErrorDialog(context, error.toString());
+      emit(ChatsSendMessageErrorState(error.toString()));
+    }
   }
 }

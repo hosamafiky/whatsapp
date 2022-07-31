@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -11,6 +13,8 @@ import 'package:whatsapp_clone/business_logic/chats_cubit/chats_state.dart';
 import 'package:whatsapp_clone/data/models/message_model.dart';
 import 'package:whatsapp_clone/data/models/user_model.dart';
 import 'package:whatsapp_clone/presentation/widgets/chats_widgets/message_card.dart';
+import 'package:whatsapp_clone/utils/enums/message_enum.dart';
+import 'package:whatsapp_clone/utils/utils.dart';
 import '../../constants/palette.dart';
 import '../widgets/chats_widgets/attach_bottom_sheet.dart';
 
@@ -71,6 +75,21 @@ class _SingleChatScreenState extends State<SingleChatScreen> {
         buttonMode: ButtonMode.MATERIAL,
       ),
     );
+  }
+
+  void sendFileMessage(BuildContext context) async {
+    File? messagePicture = await pickFileFromGallery(context);
+    if (messagePicture != null) {
+      var senderUserData =
+          await BlocProvider.of<ChatsCubit>(context).getUserData();
+      BlocProvider.of<ChatsCubit>(context).sendFileMessage(
+        context,
+        receiverId: widget.userModel['uId'],
+        file: messagePicture,
+        senderUserData: senderUserData,
+        messageEnum: MessageEnum.image,
+      );
+    }
   }
 
   @override
@@ -348,7 +367,8 @@ class _SingleChatScreenState extends State<SingleChatScreen> {
                                                 Icons.attach_file_outlined),
                                           ),
                                           IconButton(
-                                            onPressed: () {},
+                                            onPressed: () =>
+                                                sendFileMessage(context),
                                             icon: const Icon(Icons.camera_alt),
                                           ),
                                         ],

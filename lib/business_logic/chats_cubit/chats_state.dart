@@ -53,3 +53,5 @@ class ChatsSendMessageErrorState extends ChatsState {
 }
 
 class ChatMessagesLoadedSuccess extends ChatsState {}
+
+class ChatContactsLoadedSuccess extends ChatsState {}

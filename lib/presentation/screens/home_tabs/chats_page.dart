@@ -4,7 +4,6 @@ import 'package:whatsapp_clone/business_logic/chats_cubit/chats_cubit.dart';
 import 'package:whatsapp_clone/business_logic/chats_cubit/chats_state.dart';
 import 'package:whatsapp_clone/presentation/screens/select_contact_screen.dart';
 import 'package:whatsapp_clone/presentation/widgets/chats_widgets/custom_card.dart';
-import 'package:whatsapp_clone/presentation/widgets/chats_widgets/shimmer_card.dart';
 import '../../../constants/palette.dart';
 import '../../../data/models/chat_model.dart';
 
@@ -72,8 +71,10 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         CustomCard(snapshot.data![index]));
               } else {
                 return ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) => const ShimmerCard(),
+                  shrinkWrap: true,
+                  itemCount: cubit.recentChats.length,
+                  itemBuilder: (context, index) =>
+                      CustomCard(cubit.recentChats[index]),
                 );
               }
             },
