@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
 
 class AttachBottomSheet extends StatelessWidget {
-  const AttachBottomSheet({Key? key}) : super(key: key);
+  final VoidCallback onGalleryPressed;
+  final VoidCallback onCameraPressed;
+  final VoidCallback onDocumentPressed;
+  final VoidCallback onContactPressed;
+  final VoidCallback onLocationPressed;
+  final VoidCallback onAudioPressed;
+  const AttachBottomSheet({
+    Key? key,
+    required this.onGalleryPressed,
+    required this.onCameraPressed,
+    required this.onDocumentPressed,
+    required this.onContactPressed,
+    required this.onLocationPressed,
+    required this.onAudioPressed,
+  }) : super(key: key);
 
-  Widget iconCreation(IconData icon, Color color, String text) {
+  Widget iconCreation({
+    required IconData icon,
+    required Color color,
+    required String text,
+    required VoidCallback onTap,
+  }) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Column(
         children: [
           CircleAvatar(
@@ -51,21 +70,24 @@ class AttachBottomSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   iconCreation(
-                    Icons.insert_drive_file,
-                    Colors.indigo,
-                    'Document',
+                    icon: Icons.insert_drive_file,
+                    color: Colors.indigo,
+                    text: 'Document',
+                    onTap: onDocumentPressed,
                   ),
                   const SizedBox(width: 40.0),
                   iconCreation(
-                    Icons.camera_alt,
-                    Colors.pink,
-                    'Camera',
+                    icon: Icons.camera_alt,
+                    color: Colors.pink,
+                    text: 'Camera',
+                    onTap: onCameraPressed,
                   ),
                   const SizedBox(width: 40.0),
                   iconCreation(
-                    Icons.insert_photo,
-                    Colors.purple,
-                    'Gallery',
+                    icon: Icons.insert_photo,
+                    color: Colors.purple,
+                    text: 'Gallery',
+                    onTap: onGalleryPressed,
                   ),
                 ],
               ),
@@ -74,21 +96,24 @@ class AttachBottomSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   iconCreation(
-                    Icons.headset,
-                    Colors.orange,
-                    'Audio',
+                    icon: Icons.headset,
+                    color: Colors.orange,
+                    text: 'Audio',
+                    onTap: onAudioPressed,
                   ),
                   const SizedBox(width: 40.0),
                   iconCreation(
-                    Icons.location_pin,
-                    Colors.teal,
-                    'Location',
+                    icon: Icons.location_pin,
+                    color: Colors.teal,
+                    text: 'Location',
+                    onTap: onLocationPressed,
                   ),
                   const SizedBox(width: 40.0),
                   iconCreation(
-                    Icons.person,
-                    Colors.blue,
-                    'Contact',
+                    icon: Icons.person,
+                    color: Colors.blue,
+                    text: 'Contact',
+                    onTap: onContactPressed,
                   ),
                 ],
               ),

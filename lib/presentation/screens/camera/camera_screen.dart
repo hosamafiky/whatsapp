@@ -23,6 +23,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   void takePicture(BuildContext context) async {
     cameraController!.takePicture().then((value) {
+      Navigator.pop(context);
       Navigator.pushNamed(
         context,
         CameraViewScreen.routeName,
@@ -49,6 +50,12 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        actions: const [],
+      ),
       body: Stack(
         children: [
           FutureBuilder(

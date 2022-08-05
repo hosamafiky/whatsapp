@@ -1,14 +1,16 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'info_state.dart';
+
 import '../../data/models/user_model.dart';
 import '../../data/repository/info_screen_repo.dart';
 import '../../helpers/firebase_database_helper/firebase_database_helper.dart';
 import '../../helpers/firebase_storage_helper/firebase_storage_helper.dart';
+import 'info_state.dart';
 
 class InfoCubit extends Cubit<InfoState> {
   InfoCubit() : super(InfoInitial());
@@ -17,16 +19,69 @@ class InfoCubit extends Cubit<InfoState> {
 
   void pickImageFromGallery() {
     ImagePicker().pickImage(source: ImageSource.gallery).then((value) {
-      emit(InfoPickImageSuccess(File(value!.path)));
+      if (value != null) {
+        ImageCropper().cropImage(
+          sourcePath: value.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+          ],
+          uiSettings: [
+            AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false,
+            ),
+            IOSUiSettings(
+              title: 'Cropper',
+            ),
+          ],
+        ).then((value) {
+          if (value != null) {
+            emit(InfoPickImageSuccess(File(value.path)));
+          }
+        });
+      }
     }).catchError((error) {
       emit(InfoPickImageError(error.toString()));
     });
   }
 
   void pickImageFromCamera() {
-    ImagePicker().pickImage(source: ImageSource.camera).then((value) {
+    ImagePicker().pickImage(source: ImageSource.camera).then((value) async {
       if (value != null) {
-        emit(InfoPickImageSuccess(File(value.path)));
+        ImageCropper().cropImage(
+          sourcePath: value.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+          ],
+          uiSettings: [
+            AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false,
+              hideBottomControls: true,
+            ),
+            IOSUiSettings(
+              title: 'Cropper',
+            ),
+          ],
+        ).then((value) {
+          if (value != null) {
+            emit(InfoPickImageSuccess(File(value.path)));
+          }
+        });
       }
     }).catchError((error) {
       emit(InfoPickImageError(error.toString()));

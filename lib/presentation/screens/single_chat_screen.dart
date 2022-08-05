@@ -377,7 +377,16 @@ class _SingleChatScreenState extends State<SingleChatScreen> {
                                                   Colors.transparent,
                                               context: context,
                                               builder: (context) =>
-                                                  const AttachBottomSheet(),
+                                                  AttachBottomSheet(
+                                                onAudioPressed: () {},
+                                                onCameraPressed: () =>
+                                                    cubit.pickImageFromCamera(),
+                                                onContactPressed: () {},
+                                                onDocumentPressed: () {},
+                                                onGalleryPressed: () => cubit
+                                                    .pickImageFromGallery(),
+                                                onLocationPressed: () {},
+                                              ),
                                             ),
                                             icon: const Icon(
                                                 Icons.attach_file_outlined),
